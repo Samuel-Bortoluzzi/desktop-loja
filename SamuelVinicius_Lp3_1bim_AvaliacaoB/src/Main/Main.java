@@ -2,6 +2,7 @@ package Main;
 import GUIs.MenuPrincipal;
 import GUIs.ProdutoGUIs;
 import GUIs.UsuarioGUIs;
+import java.awt.Dimension;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
 //        ProdutoGUIs produtoGUIs = new ProdutoGUIs();
 //        UsuarioGUIs usuarioGUIs = new UsuarioGUIs();
-        MenuPrincipal menuPrincipal = new MenuPrincipal();
+        new MenuPrincipal(new Dimension(1300,800));
         
         
 //  teste commit 1
