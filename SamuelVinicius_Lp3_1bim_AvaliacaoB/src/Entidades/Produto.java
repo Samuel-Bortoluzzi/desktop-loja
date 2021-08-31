@@ -8,12 +8,15 @@ package Entidades;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,6 +30,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p")})
 public class Produto implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
+    private List<PedidoHasProduto> pedidoHasProdutoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -141,6 +147,14 @@ public class Produto implements Serializable {
     @Override
     public String toString() {
         return idProduto + ";" + nomeProduto + ";" + categoria + ";" + preco + ";" + new SimpleDateFormat("dd/MM/yyyy").format(dataCadastro) + ";" + qtdEstoque;
+    }
+
+    public List<PedidoHasProduto> getPedidoHasProdutoList() {
+        return pedidoHasProdutoList;
+    }
+
+    public void setPedidoHasProdutoList(List<PedidoHasProduto> pedidoHasProdutoList) {
+        this.pedidoHasProdutoList = pedidoHasProdutoList;
     }
     
 }

@@ -6,12 +6,15 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +26,11 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "FormaPagamento.findAll", query = "SELECT f FROM FormaPagamento f")})
 public class FormaPagamento implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "formaPagamento")
+    private List<UsuarioHasFormaPagamento> usuarioHasFormaPagamentoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "formaPagamentoIdPagamento")
+    private List<Pedido> pedidoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -84,6 +92,22 @@ public class FormaPagamento implements Serializable {
     @Override
     public String toString() {
         return idPagamento + ";" + nomeFormaPagamento;
+    }
+
+    public List<UsuarioHasFormaPagamento> getUsuarioHasFormaPagamentoList() {
+        return usuarioHasFormaPagamentoList;
+    }
+
+    public void setUsuarioHasFormaPagamentoList(List<UsuarioHasFormaPagamento> usuarioHasFormaPagamentoList) {
+        this.usuarioHasFormaPagamentoList = usuarioHasFormaPagamentoList;
+    }
+
+    public List<Pedido> getPedidoList() {
+        return pedidoList;
+    }
+
+    public void setPedidoList(List<Pedido> pedidoList) {
+        this.pedidoList = pedidoList;
     }
     
 }

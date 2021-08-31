@@ -6,7 +6,9 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,6 +29,11 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
 public class Usuario implements Serializable {
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private UsuarioHasFormaPagamento usuarioHasFormaPagamento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Pedido> pedidoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -143,6 +152,22 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return idUsuario + ";" + nomeCompleto + ";" + email + ";" + senha + ";" + nomeUsuario + ";" + (ativo == 1?"Sim" : "Não") + ";" + cpfUsuario;
+    }
+
+    public UsuarioHasFormaPagamento getUsuarioHasFormaPagamento() {
+        return usuarioHasFormaPagamento;
+    }
+
+    public void setUsuarioHasFormaPagamento(UsuarioHasFormaPagamento usuarioHasFormaPagamento) {
+        this.usuarioHasFormaPagamento = usuarioHasFormaPagamento;
+    }
+
+    public List<Pedido> getPedidoList() {
+        return pedidoList;
+    }
+
+    public void setPedidoList(List<Pedido> pedidoList) {
+        this.pedidoList = pedidoList;
     }
     
 }
